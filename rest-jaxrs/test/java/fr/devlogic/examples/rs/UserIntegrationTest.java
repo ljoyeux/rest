@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
 import java.net.URI;
 
 public class UserIntegrationTest {
-    public static final String BASE_URL = "http://localhost:8080/rest-jaxrs";
+    public static final String BASE_URL = "http://localhost:9080/rest-jaxrs";
 
     @Test
     public void userInfoJaxRS() {
@@ -41,7 +41,7 @@ public class UserIntegrationTest {
 
         final HttpEntity<User> httpEntity = new HttpEntity<>(user);
 
-        UserInformation userInformation = restTemplate.postForObject(URI.create("http://localhost:8080/rest-jaxrs/rs/user/info"), httpEntity, UserInformation.class);
+        UserInformation userInformation = restTemplate.postForObject(URI.create(BASE_URL + "/rs/user/info"), httpEntity, UserInformation.class);
 
         System.out.println(userInformation);
     }
