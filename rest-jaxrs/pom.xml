@@ -16,6 +16,7 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jersey.scope>test</jersey.scope>
     </properties>
     
     <dependencies>
@@ -35,17 +36,17 @@
         <dependency>
             <groupId>org.glassfish.jersey.inject</groupId>
             <artifactId>jersey-hk2</artifactId>
-            <scope>test</scope>
+            <scope>${jersey.scope}</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-client</artifactId>
-            <scope>test</scope>
+            <scope>${jersey.scope}</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-jackson</artifactId>
-            <scope>test</scope>
+            <scope>${jersey.scope}</scope>
         </dependency>
 
         <!-- Spring -->
@@ -117,4 +118,49 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>tomcat</id>
+            <activation>
+                <property>
+                    <name>tomcat.target</name>
+                </property>
+            </activation>
+            <properties>
+                <jersey.scope>runtime</jersey.scope>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.glassfish.jersey.containers</groupId>
+                    <artifactId>jersey-container-servlet</artifactId>
+                    <scope>runtime</scope>
+                </dependency>
+
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>tomcat.jdk10.plus</id>
+            <activation>
+                <jdk>[10,)</jdk>
+                <property>
+                    <name>tomcat.target</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>com.sun.xml.bind</groupId>
+                    <artifactId>jaxb-impl</artifactId>
+                    <version>${jaxb.version}</version>
+                    <scope>runtime</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.sun.xml.bind</groupId>
+                    <artifactId>jaxb-core</artifactId>
+                    <version>${jaxb.version}</version>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 </project>
