@@ -17,9 +17,11 @@ public class XmlTest {
         user.setUser("ljoyeux");
         user.setPassword("coucou");
 
+        // Serialisation
         final String xml = WSUtils.objectToXml(user, new ByteArrayOutputStream()).toString();
         System.out.println(xml);
 
+        // De-Serialisation
         final User xmlUser = WSUtils.xmlToObject(new ByteArrayInputStream(xml.getBytes()), User.class);
 
         Assert.assertEquals(user, xmlUser);
@@ -31,12 +33,14 @@ public class XmlTest {
         user.setUser("ljoyeux");
         user.setPassword("coucou");
 
+        // Serialisation
         final String json = WSUtils.objectToJson(user, new ByteArrayOutputStream()).toString();
         System.out.println(json);
 
-        final User xmlUser = WSUtils.jsonToObject(new ByteArrayInputStream(json.getBytes()), User.class);
+        // De-Serialisation
+        final User jsonUser = WSUtils.jsonToObject(new ByteArrayInputStream(json.getBytes()), User.class);
 
-        Assert.assertEquals(user, xmlUser);
+        Assert.assertEquals(user, jsonUser);
     }
 
 
