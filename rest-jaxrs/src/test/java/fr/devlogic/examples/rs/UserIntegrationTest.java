@@ -20,6 +20,7 @@ public class UserIntegrationTest {
 
     @Test
     public void userInfoJaxRS() {
+        System.out.println("userInfoJaxRS");
         final WebTarget webTarget = ClientBuilder.newClient().target(BASE_URL);
         final User user = new User();
         user.setUser("ljoyeux");
@@ -34,6 +35,7 @@ public class UserIntegrationTest {
 
     @Test
     public void userInfoSpring() {
+        System.out.println("userInfoSpring");
         final RestTemplate restTemplate = new RestTemplate();
 
         final User user = new User();
